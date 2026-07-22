@@ -24,22 +24,25 @@ static void	process_numbers(t_number **stack, char **matrix)
 	long int	nbr;
 	t_number	*new_n;
 
-	i = -1;
-	while (matrix[++i])
+	i = 0;
+	while (matrix[i])
 	{
 		if (!check_syntax(matrix[i]))
 			free_error(stack, matrix);
 		nbr = ft_atol(matrix[i]);
-		if (!check_limits(nbr) || check_duplicate(*stack, (int)nbr))
+		if (!check_limits(nbr))
+			free_error(stack, matrix);
+		if (check_duplicate(*stack, (int)nbr))
 			free_error(stack, matrix);
 		new_n = create_node((int)nbr);
 		if (!new_n)
 			free_error(stack, matrix);
 		append_node(stack, new_n);
+		i++;
 	}
 }
 
-void	parse_input(t_number **stack, char **argv)
+void	parse_input(t_number **stack_a, char **argv)
 {
 	int		i;
 	char	**matrix;
@@ -53,9 +56,9 @@ void	parse_input(t_number **stack, char **argv)
 			continue ;
 		}
 		matrix = ft_split(argv[i], ' ');
-		if (!matrix || !*matrix)
-			free_error(stack, matrix);
-		process_numbers(stack, matrix);
+		if (!matrix || !matrix[0])
+			free_error(stack_a, matrix);
+		process_numbers(stack_a, matrix);
 		free_matrix(matrix);
 		i++;
 	}

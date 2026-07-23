@@ -1,0 +1,55 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   complex_sort.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jamsilva <jamsilva@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/14 14:01:14 by luafranc          #+#    #+#             */
+/*   Updated: 2026/07/23 14:50:00 by jamsilva         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+static int	get_max_bits(int size)
+{
+	int	max_bits;
+
+	max_bits = 0;
+	size--;
+	while ((size >> max_bits) != 0)
+		max_bits++;
+	return (max_bits);
+}
+
+static void	radix_pass(t_number **a, t_number **b, int bit, int size)
+{
+	while (size > 0)
+	{
+		if ((((*a)->index >> bit) & 1) == 0)
+			pb(a, b);
+		else
+			ra(a);
+		size--;
+	}
+	while (*b)
+		pa(b, a);
+}
+
+void	complex_sort(t_number **a, t_number **b)
+{
+	int	max_bits;
+	int	size;
+	int	i;
+
+	assign_indexes(*a);
+	size = get_stack_size(*a);
+	max_bits = get_max_bits(size);
+	i = 0;
+	while (i < max_bits)
+	{
+		radix_pass(a, b, i, size);
+		i++;
+	}
+}

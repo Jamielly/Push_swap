@@ -1,0 +1,94 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   medium_sort.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jamsilva <jamsilva@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/14 14:01:00 by luafranc          #+#    #+#             */
+/*   Updated: 2026/07/23 16:20:00 by jamsilva         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+static void	move_index_to_top(t_number **b, int index)
+{
+	int			size;
+	int			pos;
+	t_number	*tmp;
+
+	size = get_stack_size(*b);
+	pos = 0;
+	tmp = *b;
+	while (tmp && tmp->index != index)
+	{
+		pos++;
+		tmp = tmp->next;
+	}
+	while ((*b)->index != index)
+	{
+		if (pos <= size / 2)
+			rb(b);
+		else
+			rrb(b);
+	}
+}
+
+static void	push_one_chunk(t_number **a, t_number **b, int *i, int chunk)
+{
+	if ((*a)->index <= *i)
+	{
+		pb(a, b);
+		rb(b);
+		(*i)++;
+	}
+	else if ((*a)->index <= *i + chunk)
+	{
+		pb(a, b);
+		(*i)++;
+	}
+	else
+		ra(a);
+}
+
+static void	push_chunks_to_b(t_number **a, t_number **b, int size)
+{
+	int	i;
+	int	chunk;
+
+	i = 0;
+	chunk = 15;
+	if (size > 100)
+		chunk = 35;
+	while (get_stack_size(*a) > 3)
+	{
+		if ((*a)->index >= size - 3)
+			ra(a);
+		else
+			push_one_chunk(a, b, &i, chunk);
+	}
+}
+
+void	medium_sort(t_number **a, t_number **b)
+{
+	int	size;
+	int	max;
+
+	assign_indexes(*a);
+	size = get_stack_size(*a);
+	if (size <= 5)
+	{
+		simple_sort(a, b);
+		return ;
+	}
+	push_chunks_to_b(a, b, size);
+	sort_three(a);
+	max = size - 4;
+	while (*b)
+	{
+		move_index_to_top(b, max);
+		pa(b, a);
+		max--;
+	}
+}

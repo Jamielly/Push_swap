@@ -1,0 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   benchmark.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jamsilva <jamsilva@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/14 14:01:14 by luafranc          #+#    #+#             */
+/*   Updated: 2026/07/23 14:50:00 by jamsilva         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap.h"
+
+t_bench	*get_bench(void)
+{
+	static t_bench	bench;
+
+	return (&bench);
+}
+
+static void	count_cmd_rot(t_bench *b, char *cmd)
+{
+	if (ft_strncmp(cmd, "ra", 3) == 0)
+		b->ra++;
+	else if (ft_strncmp(cmd, "rb", 3) == 0)
+		b->rb++;
+	else if (ft_strncmp(cmd, "rr", 3) == 0)
+		b->rr++;
+	else if (ft_strncmp(cmd, "rra", 4) == 0)
+		b->rra++;
+	else if (ft_strncmp(cmd, "rrb", 4) == 0)
+		b->rrb++;
+	else if (ft_strncmp(cmd, "rrr", 4) == 0)
+		b->rrr++;
+}
+
+static void	count_cmd(t_bench *b, char *cmd)
+{
+	if (ft_strncmp(cmd, "sa", 3) == 0)
+		b->sa++;
+	else if (ft_strncmp(cmd, "sb", 3) == 0)
+		b->sb++;
+	else if (ft_strncmp(cmd, "ss", 3) == 0)
+		b->ss++;
+	else if (ft_strncmp(cmd, "pa", 3) == 0)
+		b->pa++;
+	else if (ft_strncmp(cmd, "pb", 3) == 0)
+		b->pb++;
+	else
+		count_cmd_rot(b, cmd);
+}
+
+void	register_cmd(char *cmd)
+{
+	t_bench	*b;
+
+	b = get_bench();
+	ft_putendl_fd(cmd, 1);
+	b->total++;
+	if (b->bench_mode)
+		count_cmd(b, cmd);
+}

@@ -1,4 +1,4 @@
-*This project was developed as part of the 42 curriculum by **jamsilva** and **luafranc**.*
+*This project has been created as part of the 42 curriculum by **jamsilva** and **luafranc**.*
 
 # push_swap
 

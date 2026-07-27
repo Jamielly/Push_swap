@@ -1,235 +1,95 @@
-*This project has been created as part of the 42 curriculum by **jamsilva** and **luafranc**.*
-
 # push_swap
 
-## About
-
-`push_swap` is a sorting algorithm project from the 42 curriculum.
-
-The goal is to sort a stack of integers using two stacks (`a` and `b`) and a
-limited set of stack operations while producing the smallest possible sequence
-of instructions.
-
-The program validates the input, detects invalid cases (duplicates, overflow,
-invalid syntax), and prints the operations required to sort the stack.
+*This project has been created as part of the 42 curriculum by jamsilva, luafranc.*
 
 ---
 
-## Features
+## Description
 
-- Input validation
-- Duplicate detection
-- Integer overflow protection
-- Memory leak free
-- Norm compliant
-- Multiple sorting strategies
-- Adaptive strategy selection
-- Optional benchmark mode
+`push_swap` is an algorithm project focused on sorting data on a stack using a limited set of instructions and two stacks (`a` and `b`). The goal is to generate the smallest possible sequence of operations (e.g. `sa`, `pb`, `ra`) to achieve total sorting on stack `a`. This project explores algorithmic complexity (Big-O) and the implementation of multiple sorting strategies.
 
 ---
 
-## Sorting Strategies
+## Instructions
 
-The project includes four available strategies.
+### Compilation
 
-| Strategy | Flag | Description |
-|----------|------|-------------|
-| Simple | `--simple` | Optimized for very small inputs. |
-| Medium | `--medium` | Chunk-based sorting for medium and large stacks. |
-| Complex | `--complex` | Binary radix sort using indexed values. |
-| Adaptive *(default)* | `--adaptive` | Automatically selects the most appropriate strategy. |
+The project uses a `Makefile` with the required flags `-Wall -Wextra -Werror`.
 
----
+| Command       | Action                                     |
+|---------------|---------------------------------------------|
+| `make`        | Compiles the `push_swap` binary              |
+| `make clean`  | Removes object files                         |
+| `make fclean` | Removes object files and the binary          |
+| `make re`     | Recompiles the project                       |
 
-## Adaptive Strategy
+### Usage
 
-When no flag is provided, `push_swap` automatically chooses the sorting
-strategy based on the input size and its level of disorder.
-
-The disorder score is computed before sorting using the ratio of inverted pairs
-(Kendall Tau distance):
-
-```
-disorder = inverted_pairs / total_pairs
-```
-
-- `0.0` → already sorted
-- `1.0` → completely reversed
-
-Selection rules:
-
-- **n ≤ 5**
-  - Uses the optimized small-sort implementation.
-- **Nearly sorted small inputs**
-  - Uses the Simple strategy.
-- **Highly disordered medium inputs**
-  - Uses Binary Radix Sort.
-- **All remaining cases**
-  - Uses Chunk Sort.
-
----
-
-## Algorithms
-
-### Simple
-
-Uses specialized routines for stacks of size 2, 3 and 5.
-
-For larger inputs, the smallest value is repeatedly moved to stack **b** using
-the shortest rotation path before rebuilding the sorted stack.
-
----
-
-### Medium
-
-Chunk Sort.
-
-Values are first indexed from `0` to `n - 1`.
-
-The stack is divided into chunks, pushing elements into stack **b** while
-keeping retrieval efficient.
-
-The remaining elements are sorted, then values are pushed back in descending
-order.
-
----
-
-### Complex
-
-Binary LSD Radix Sort.
-
-Values are indexed before sorting.
-
-For each bit:
-
-- bit = 0 → `pb`
-- bit = 1 → `ra`
-
-After each pass, all elements are restored with `pa`.
-
----
-
-## Build
+Run the program with a list of integers as arguments. You can also use strategy selectors:
 
 ```bash
-make
-make clean
-make fclean
-make re
-```
-
-Compilation flags:
-
-```text
--Wall -Wextra -Werror
-```
-
----
-
-## Usage
-
-Default (Adaptive):
-
-```bash
+# Default (Adaptive)
 ./push_swap 4 67 3 87 23
-```
 
-Force a strategy:
-
-```bash
-./push_swap --simple 5 4 3 2 1
-
-./push_swap --medium $(shuf -i 0-99 -n 50 | tr '\n' ' ')
-
-./push_swap --complex $(shuf -i 0-999 -n 100 | tr '\n' ' ')
-
-./push_swap --adaptive 5 4 3 2 1
-```
-
-Benchmark mode:
-
-```bash
-./push_swap --bench --simple 5 4 3 2 1
-```
-
-Count operations:
-
-```bash
-ARG="4 67 3 87 23"
-
-./push_swap $ARG | wc -l
-```
-
-Validate using the official checker:
-
-```bash
-ARG="4 67 3 87 23"
-
-./push_swap $ARG | ./checker_linux $ARG
+# Specific strategy
+./push_swap --simple 3 2 1
+./push_swap --medium 5 4 3 2 1
+./push_swap --complex 100 2 45 ...
 ```
 
 ---
 
-## Error Handling
+## Algorithms & Complexity
 
-Examples:
+### 1. Simple Sort — O(n²)
 
-```bash
-./push_swap 0 one 2 3
-# Error
+Optimized for very small sets (n ≤ 5). It uses specialized routines for 2, 3, and 5 numbers, identifying the smallest value and pushing it to stack `b` until stack `a` is ready.
 
-./push_swap 3 2 3
-# Error
+### 2. Medium Sort — O(n√n)
 
-./push_swap 2147483648
-# Error
+Uses a chunk-based strategy. Values are indexed, and the stack is divided into `√n` chunks. Elements are moved to stack `b` based on their range, reducing the number of rotations needed to find the next element.
 
-./push_swap
-# No output
-```
+### 3. Complex Sort — O(n log n)
 
----
+Implements a binary LSD Radix Sort. By indexing values first, the algorithm sorts bit by bit. This guarantees stable performance for large sets (100 or 500 numbers) without exceeding operation limits.
 
-## Project Structure
+### 4. Adaptive Strategy
 
-```
-include/
-libft/
-src/
-operations/
-parsing/
-sorting/
-utils/
-```
+Our custom selector measures the disorder of the stack before any move:
+
+| Disorder                | Strategy triggered |
+|--------------------------|---------------------|
+| Low (< 0.2)              | Simple Sort         |
+| Medium (0.2 to 0.5)      | Medium Sort         |
+| High (≥ 0.5)             | Complex Sort        |
 
 ---
 
-## References
+## Resources
 
-- 42 Subject — push_swap
-- Think Like a Programmer — V. Anton Spraul
-- The Programmer's Brain — Felienne Hermans
-- Binary Radix Sort
-- Chunk-based Sorting
-- Big-O Notation
-- 42 push_swap Visualizer
+### References
+
+- *Think Like a Programmer* (V. Anton Spraul) — Problem-solving
+- *The Programmer's Brain* (Felienne Hermans) — Cognitive processes
+- Big-O Notation and Radix Sort (Wikipedia)
+
+### AI Usage
+
+AI was used to assist with the following tasks:
+
+- **Scaffolding:** initial directory structure and Makefile rules.
+- **Data structures:** definition of `t_number` and `t_bench` structs.
+- **Logic:** assistance with the `compute_disorder` mathematical formula and `ft_atol` validation.
+
+All code was manually reviewed, refactored for Norm compliance, and tested to ensure full understanding.
 
 ---
 
-## AI Assistance
+## Contributions
 
-Every generated snippet was reviewed, rewritten when necessary, adapted to the
-42 Norm, tested, and fully understood by both authors. The final implementation
-and debugging were completed manually.
+Both members contributed equally to the core logic.
 
----
-
-## Authors
-
-| Login | Contributions |
-|-------|---------------|
-| **jamsilva** | Sorting algorithms, adaptive mode, disorder metric, benchmark mode, indexing, integration and documentation. |
-| **luafranc** | Stack operations, parsing, validation, memory management, Makefile, project architecture and initial implementation. |
-
-Both authors reviewed the entire codebase and are able to explain every part of
-the implementation.
+| Member       | Responsibilities                                         |
+|--------------|------------------------------------------------------------|
+| **jamsilva** | Parsing, validation, and Simple/Medium algorithms           |
+| **luafranc** | Operations base, Radix implementation, and Adaptive logic   |

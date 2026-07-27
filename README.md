@@ -218,14 +218,6 @@ utils/
 
 ## AI Assistance
 
-AI tools (Replit Agent and Cursor) were used during the development process for:
-
-- project scaffolding;
-- Makefile boilerplate;
-- initial data structure suggestions;
-- parsing helpers;
-- algorithm skeletons.
-
 Every generated snippet was reviewed, rewritten when necessary, adapted to the
 42 Norm, tested, and fully understood by both authors. The final implementation
 and debugging were completed manually.

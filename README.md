@@ -1,6 +1,10 @@
+*This project has been created as part of the 42 curriculum by jamsilva, luafranc.*
+
 # push_swap
 
-*This project has been created as part of the 42 curriculum by jamsilva, luafranc.*
+![Language](https://img.shields.io/badge/language-C-blue.svg)
+![42](https://img.shields.io/badge/42-Push_swap-black.svg)
+![Status](https://img.shields.io/badge/status-Completed-success.svg)
 
 ---
 

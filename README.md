@@ -91,5 +91,5 @@ Both members contributed equally to the core logic.
 
 | Member       | Responsibilities                                         |
 |--------------|------------------------------------------------------------|
-| **jamsilva** | Parsing, validation, and Simple/Medium algorithms           |
-| **luafranc** | Operations base, Radix implementation, and Adaptive logic   |
+| **luafranc** | Parsing, validation, and Simple/Medium algorithms           |
+| **jamsilva** | Operations base, Radix implementation, and Adaptive logic   |

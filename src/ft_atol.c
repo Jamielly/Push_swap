@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luafranc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: luafranc <luafranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 14:00:52 by luafranc          #+#    #+#             */
-/*   Updated: 2026/07/14 14:00:53 by luafranc         ###   ########.fr       */
+/*   Updated: 2026/07/24 10:19:05 by luafranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,3 @@ long int	ft_atol(char *str)
 	}
 	return (result * sign);
 }
-

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   adaptive_tools.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: luafranc <luafranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 14:00:45 by luafranc          #+#    #+#             */
-/*   Updated: 2026/07/23 12:54:28 by marvin           ###   ########.fr       */
+/*   Updated: 2026/07/24 19:49:11 by luafranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,40 +32,44 @@ float	compute_disorder(t_number *stack)
 	t_number	*current;
 	t_number	*compare;
 
-	mistakes = 0;
-	total_pairs = 0;
+	if (!stack || !stack->next)
+		return (0.0);
+	mistakes = 0.0;
+	total_pairs = 0.0;
 	current = stack;
 	while (current)
 	{
 		compare = current->next;
 		while (compare)
 		{
-			total_pairs++;
+			total_pairs += 1.0;
 			if (current->value > compare->value)
-				mistakes++;
+				mistakes += 1.0;
 			compare = compare->next;
 		}
 		current = current->next;
 	}
-	if (total_pairs == 0)
-		return (0);
+	if (total_pairs == 0.0)
+		return (0.0);
 	return (mistakes / total_pairs);
 }
 
 void	adaptive_sort(t_number **a, t_number **b)
 {
-	float	disorder;
 	int		size;
+	float	disorder;
 
-	disorder = compute_disorder(*a);
+	if (!a || !*a)
+		return ;
 	size = get_stack_size(*a);
-    
-	if (size <= 5 || disorder <= 0.1)
+	disorder = compute_disorder(*a);
+	get_bench()->disorder = disorder;
+	if (size <= 5 || disorder < 0.2)
 	{
 		get_bench()->strategy_name = "Simple / O(n^2)";
 		simple_sort(a, b);
 	}
-	else if (disorder >= 0.5 || size >= 200)
+	else if (disorder >= 0.5)
 	{
 		get_bench()->strategy_name = "Complex / O(n log n)";
 		complex_sort(a, b);
@@ -79,6 +83,7 @@ void	adaptive_sort(t_number **a, t_number **b)
 
 void	execute_strategy(t_number **a, t_number **b, char *flag)
 {
+	get_bench()->disorder = compute_disorder(*a);
 	if (!flag || ft_strncmp(flag, "--adaptive", 11) == 0)
 		adaptive_sort(a, b);
 	else if (ft_strncmp(flag, "--simple", 9) == 0)
@@ -88,7 +93,7 @@ void	execute_strategy(t_number **a, t_number **b, char *flag)
 	}
 	else if (ft_strncmp(flag, "--medium", 9) == 0)
 	{
-		get_bench()->strategy_name = "Medium / O(n*sqrt(n))";
+		get_bench()->strategy_name = "Medium / O(n* sqrt(n))";
 		medium_sort(a, b);
 	}
 	else if (ft_strncmp(flag, "--complex", 10) == 0)
@@ -97,7 +102,6 @@ void	execute_strategy(t_number **a, t_number **b, char *flag)
 		complex_sort(a, b);
 	}
 }
-
 
 int	is_flag(char *str)
 {

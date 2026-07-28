@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luafranc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: luafranc <luafranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 14:01:19 by luafranc          #+#    #+#             */
-/*   Updated: 2026/07/14 14:01:21 by luafranc         ###   ########.fr       */
+/*   Updated: 2026/07/24 10:19:21 by luafranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_number	*create_node(int value)
 {
 	t_number	*new_node;
-	
+
 	new_node = malloc(sizeof(t_number));
 	if (!new_node)
 		return (NULL);
@@ -33,7 +33,6 @@ t_number	*get_last_node(t_number *stack)
 		stack = stack->next;
 	return (stack);
 }
-
 
 void	append_node(t_number **stack, t_number *new_node)
 {

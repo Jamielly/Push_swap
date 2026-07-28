@@ -6,7 +6,7 @@
 /*   By: luafranc <luafranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 14:01:14 by luafranc          #+#    #+#             */
-/*   Updated: 2026/07/15 16:15:19 by luafranc         ###   ########.fr       */
+/*   Updated: 2026/07/24 10:18:59 by luafranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,3 @@ void	complex_sort(t_number **a, t_number **b)
 	}
 	shift_values(a, min_val, 1);
 }
-

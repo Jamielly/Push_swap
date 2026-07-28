@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: luafranc <luafranc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jamsilva <jamsilva@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 14:01:27 by luafranc          #+#    #+#             */
-/*   Updated: 2026/07/15 19:34:23 by luafranc         ###   ########.fr       */
+/*   Updated: 2026/07/28 11:21:46 by jamsilva         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	process_numbers(t_number **stack, char **matrix)
 	}
 }
 
-
 void	parse_input(t_number **stack, char **argv)
 {
 	int		i;
@@ -61,6 +60,3 @@ void	parse_input(t_number **stack, char **argv)
 		i++;
 	}
 }
-
-
-

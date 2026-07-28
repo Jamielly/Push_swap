@@ -6,7 +6,7 @@
 /*   By: luafranc <luafranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 14:01:00 by luafranc          #+#    #+#             */
-/*   Updated: 2026/07/15 16:12:15 by luafranc         ###   ########.fr       */
+/*   Updated: 2026/07/24 10:29:01 by luafranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,4 +115,3 @@ void	medium_sort(t_number **a, t_number **b)
 		pa(b, a);
 	}
 }
-

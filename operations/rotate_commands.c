@@ -6,7 +6,7 @@
 /*   By: luafranc <luafranc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/07/14 14:00:28 by luafranc          #+#    #+#             */
-/*   Updated: 2026/07/15 19:16:31 by luafranc         ###   ########.fr       */
+/*   Updated: 2026/07/24 10:18:15 by luafranc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,3 @@ void	rr(t_number **a, t_number **b)
 	do_rotate(b);
 	register_cmd("rr");
 }
-

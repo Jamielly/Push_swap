@@ -10,6 +10,14 @@
 
 ---
 
+# Illustration
+
+<p align="center">
+  <img src="docs/push_swap_sim3.gif" alt="Simulação visual de ordenação estilo push_swap" width="720">
+</p>
+
+---
+
 ## Description
 
 `push_swap` is an algorithm project focused on sorting data on a stack using a limited set of instructions and two stacks (`a` and `b`). The goal is to generate the smallest possible sequence of operations (e.g. `sa`, `pb`, `ra`) to achieve total sorting on stack `a`. This project explores algorithmic complexity (Big-O) and the implementation of multiple sorting strategies.
